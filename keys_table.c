@@ -1,13 +1,12 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "keys_table.h"
+#include "input-event-codes.h"
 
 #ifndef WIN32
 #include "linux/input.h"
-#include "input-event-codes.h"
 #else
 #include "input_ev_str.h"
-#include "input-event-codes.h"
 #endif
 
 /* Data */
