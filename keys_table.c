@@ -17,8 +17,6 @@ static const char *keys[KEY_MAX + 1];
 static FILE* fp = NULL;
 static struct input_event inEvent;
 
-/* Prototypes */
-static void KBD_char2Buf(char c);
 
 /* Public functions */
 /**
@@ -40,59 +38,6 @@ void KBD_Close(void)
 {
 	fclose(fp);
 }
-
-char KBD_getc(void)
-{
-	char c = EOF;
-	if (tail != head)
-	{
-		c = inBuf[tail];
-		tail = (tail + 1) & BT_KBD_BUF_MASK;
-	}
-	else
-	{
-		return EOF;
-	}
-	return c;
-}
-
-int KBD_gets(char* str, int maxSize)
-{
-	int cnt = 0;
-
-	while (cnt < maxSize)
-	{
-		if ((EOF != (str[cnt] = KBD_getc())) ||
-			(str[cnt] == '\n') ||
-			(str[cnt] == '\0'))
-		{
-			str[cnt] = '\0';
-			return;
-		}
-	}
-
-	str[maxSize - 1] = '\0';
-}
-
-static void KBD_char2Buf(char c)
-{
-	inBuf[head] = c;
-	head = (head + 1) & BT_KBD_BUF_MASK;
-	if (head == tail)
-	{
-		tail = (tail + 1) & BT_KBD_BUF_MASK;
-	}
-}
-
-static void KBD_str2Buf(char* str)
-{
-	while (*str != '\0')
-	{
-		char2Buf(*str++);
-	}
-}
-
-
 
 char KBD_getDecodedChar()
 {
