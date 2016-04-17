@@ -11,6 +11,14 @@ int main(int argc, char* argv[])
 	char cp = 0;
 	char* fn = NULL;
 
+	printf("Type and press enter\n");
+
+	while (1)
+	{
+		cp = getchar();
+		putchar(cp);
+	}
+
 	if (argc > 1 && argv[1] != NULL)
 	{
 		fn = argv[1];
@@ -40,9 +48,8 @@ int main(int argc, char* argv[])
 	cnt = 0;
 	while (1)
 	{
-		if(EOF != (cp = KBD_getDecodedChar()))
+		cp = getchar();
 			putchar(cp);
-		else printf("EOF");
 	}
 	printf("\n");
 	printf("Finished. Press Enter key to exit.\n");
