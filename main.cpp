@@ -42,6 +42,7 @@ int main(int argc, char* argv[])
 	{
 		if(EOF != (cp = KBD_getDecodedChar()))
 			putchar(cp);
+		else printf("EOF");
 	}
 	printf("\n");
 	printf("Finished. Press Enter key to exit.\n");
