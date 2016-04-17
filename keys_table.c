@@ -75,15 +75,6 @@ int KBD_gets(char* str, int maxSize)
 	str[maxSize - 1] = '\0';
 }
 
-
-static void KBD_str2Buf(char* str)
-{
-	while (*str != '\0')
-	{
-		char2Buf(*str++);
-	}
-}
-
 static void KBD_char2Buf(char c)
 {
 	inBuf[head] = c;
@@ -93,6 +84,15 @@ static void KBD_char2Buf(char c)
 		tail = (tail + 1) & BT_KBD_BUF_MASK;
 	}
 }
+
+static void KBD_str2Buf(char* str)
+{
+	while (*str != '\0')
+	{
+		char2Buf(*str++);
+	}
+}
+
 
 
 char KBD_getDecodedChar()
