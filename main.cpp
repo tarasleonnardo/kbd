@@ -38,11 +38,10 @@ int main(int argc, char* argv[])
 	printf("ASCII decoding\n");
 
 	cnt = 0;
-	while (cnt < EVENTS_NUM)
+	while (1)
 	{
-		if(NULL != (cp = KBD_getDecodedChar()))
+		if(EOF != (cp = KBD_getDecodedChar()))
 			putchar(cp);
-		cnt++;
 	}
 	printf("\n");
 	printf("Finished. Press Enter key to exit.\n");
