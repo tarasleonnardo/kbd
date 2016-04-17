@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 	while (1)
 	{
 		if (EOF != (c = getchar()))
-			putchar(c);
+			printf("Char %c\n", c);
 		else
 			printf("EOF\n");
 	}
