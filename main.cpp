@@ -5,7 +5,7 @@
 #include "input-event-codes.h"
 #include "input_ev_str.h"
 #else
-#include "linux/input-event-codes.h"
+#include "input-event-codes.h"
 #endif
 
 #define EVENTS_NUM	100

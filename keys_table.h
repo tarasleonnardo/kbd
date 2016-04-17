@@ -20,4 +20,4 @@ extern "C"
 #ifdef __cplusplus
 }
 #endif
-#endif _KEYS_TABLE_H_
+#endif // _KEYS_TABLE_H_
