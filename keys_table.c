@@ -44,7 +44,7 @@ char KBD_getDecodedChar()
 	if (fp == NULL) return EOF;
 
 	if (1 != fread(&inEvent, sizeof(inEvent), 1, fp))
-		return NULL;
+		return EOF;
 	
 	if ((inEvent.type == EV_KEY) &&
 		((inEvent.value == 0x01) || (inEvent.value == 0x02)))
