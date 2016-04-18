@@ -47,13 +47,15 @@ char KBD_getDecodedChar()
 		return 0;
 
 	//printf("Val = %d, Code = %d, Type = %d\n", inEvent.value, inEvent.code, inEvent.type);
-	printf("");
 	if ((inEvent.type == EV_KEY) &&
 		(inEvent.value == 0x01))// || (inEvent.value == 0x02)))
 	{
 		if ((inEvent.code <= KEY_MAX) &&
 			(keys[inEvent.code] != NULL))
+		{
+			printf("%c", keys[inEvent.code][0]);
 			return keys[inEvent.code][0];
+		}
 
 		return 0;
 	}
