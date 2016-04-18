@@ -9,12 +9,23 @@
 #include "input_ev_str.h"
 #endif
 
+#define KBD_KEY_RELEASED	0x00
+#define KBD_KEY_PRESSED		0x01
+#define KBD_KEY_HOLD		0x02
+
 /* Data */
-static const char *keys[KEY_MAX + 1];
-static FILE* fp = NULL;
+static uint8_t KBD_Shift = 0;
+static uint8_t KBD_Ctrl = 0;
+static const char *KBD_Keys[KEY_MAX + 1];
+static FILE* KBD_Fp = NULL;
 static struct input_event inEvent;
 
+static int16_t KBD_DecodeCrBtn(struct input_event * ev);
+
+
+
 /* Public functions */
+
 /**
   * @return int16_t - 0 if initialization was successful, -1 - if not.
   */
@@ -22,9 +33,9 @@ int16_t KBD_Init(char* path)
 {
 	if (path != NULL)
 	{
-		fp = fopen(path, "r");
+		KBD_Fp = fopen(path, "r");
 
-		if (fp != NULL) return 0;
+		if (KBD_Fp != NULL) return 0;
 	}
 
 	return -1;
@@ -32,34 +43,60 @@ int16_t KBD_Init(char* path)
 
 void KBD_Close(void)
 {
-	fclose(fp);
+	fclose(KBD_Fp);
 }
 
 char KBD_getDecodedChar()
 {
-	if (fp == NULL) return 0;
+	if (KBD_Fp == NULL) return 0;
 
-	if (1 != fread(&inEvent, sizeof(inEvent), 1, fp))
+	if (1 != fread(&inEvent, sizeof(inEvent), 1, KBD_Fp))
 	{
 		KBD_Close();
 		return EOF;
 	}
 
-//	printf("Val = %d, Code = %d, Type = %d\n", inEvent.value, inEvent.code, inEvent.type);
 	if ((inEvent.type == EV_KEY) &&
-		((inEvent.value == 0x01) || (inEvent.value == 0x02)))
+		((inEvent.value == KBD_KEY_PRESSED) || (inEvent.value == KBD_KEY_HOLD)))
 	{
 		if ((inEvent.code <= KEY_MAX) &&
-			(keys[inEvent.code] != NULL))
+			(KBD_Keys[inEvent.code] != NULL))
 		{
-			return keys[inEvent.code][0];
+			return KBD_Keys[inEvent.code][0];
 		}
+		// Control key
+		KBD_DecodeCrBtn(&inEvent);
+		printf("shift = %d, ctrl = %d\n", KBD_Shift, KBD_Ctrl);
 		return 0;
 	}
 	return 0;
 }
 
-static const char *keys[KEY_MAX + 1] = {
+static int16_t KBD_DecodeCrBtn(struct input_event * ev)
+{
+	int16_t ret = -1;
+	static int16_t presses = 0;
+
+	switch (ev->code)
+	{
+	case KEY_LEFTCTRL:
+	case KEY_RIGHTCTRL:
+		KBD_Ctrl = (ev->value == KBD_KEY_RELEASED) ? 0 : 1;
+		ret = 0;
+		break;
+	case KEY_LEFTSHIFT:
+	case KEY_RIGHTSHIFT:
+		KBD_Shift = (ev->value == KBD_KEY_RELEASED) ? 0 : 1;
+		ret = 0;
+		break;
+	default:
+		break;
+	}
+
+	return ret;
+}
+
+static const char *KBD_Keys[KEY_MAX + 1] = {
 	[KEY_RESERVED] = NULL, [KEY_ESC] = "\0x1b",
 	[KEY_1] = "1", [KEY_2] = "2",
 	[KEY_3] = "3", [KEY_4] = "4",
@@ -74,7 +111,7 @@ static const char *keys[KEY_MAX + 1] = {
 	[KEY_U] = "U", [KEY_I] = "I",
 	[KEY_O] = "O", [KEY_P] = "P",
 	[KEY_LEFTBRACE] = "(", [KEY_RIGHTBRACE] = ")",
-	[KEY_ENTER] = "\r\n", [KEY_LEFTCTRL] = NULL,
+	[KEY_ENTER] = "\n", [KEY_LEFTCTRL] = NULL,
 	[KEY_A] = "A", [KEY_S] = "S",
 	[KEY_D] = "D", [KEY_F] = "F",
 	[KEY_G] = "G", [KEY_H] = "H",
@@ -107,7 +144,7 @@ static const char *keys[KEY_MAX + 1] = {
 	[KEY_RO] = NULL, [KEY_KATAKANA] = NULL,
 	[KEY_HIRAGANA] = NULL, [KEY_HENKAN] = NULL,
 	[KEY_KATAKANAHIRAGANA] = NULL, [KEY_MUHENKAN] = NULL,
-	[KEY_KPJPCOMMA] = ",", [KEY_KPENTER] = "\r\n",
+	[KEY_KPJPCOMMA] = ",", [KEY_KPENTER] = "\n",
 	[KEY_RIGHTCTRL] = NULL, [KEY_KPSLASH] = "/",
 	[KEY_SYSRQ] = NULL, [KEY_RIGHTALT] = NULL,
 	[KEY_LINEFEED] = "\n", [KEY_HOME] = "\r",
