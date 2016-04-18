@@ -56,23 +56,20 @@ char KBD_getDecodedChar()
 		return EOF;
 	}
 	
-
-	if ((inEvent.type == EV_KEY) &&
-		((inEvent.value == KBD_KEY_PRESSED) || (inEvent.value == KBD_KEY_HOLD)))
+	// Control key
+	if (0 == KBD_DecodeCrBtn(&inEvent))
 	{
-		if ((inEvent.code <= KEY_MAX) &&
-			(KBD_Keys[inEvent.code] != NULL))
-		{
-			return KBD_Keys[inEvent.code][0];
-		}
-
-		// Control key
-		if (0 == KBD_DecodeCrBtn(&inEvent))
-		{
-			printf("shift = %d, ctrl = %d\n", KBD_Shift, KBD_Ctrl);
-		}
-		return 0;
-	}
+		printf("shift = %d, ctrl = %d\n", KBD_Shift, KBD_Ctrl);
+	}else if ((inEvent.type == EV_KEY) &&
+		  ((inEvent.value == KBD_KEY_PRESSED) || (inEvent.value == KBD_KEY_HOLD)))
+			{
+				if ((inEvent.code <= KEY_MAX) &&
+					(KBD_Keys[inEvent.code] != NULL))
+				{
+					return KBD_Keys[inEvent.code][0];
+				}
+				return 0;
+			}
 	return 0;
 }
 
