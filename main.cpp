@@ -35,11 +35,7 @@ int main(int argc, char* argv[])
 	while (1)
 	{
 		c = KBD_getDecodedChar();
-		if (c == 0)
-		{
-			printf("Unknown\n");
-		}
-		else
+		if (c != 0)
 		{
 			printf("%c\n", c);
 		}
