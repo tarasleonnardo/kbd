@@ -1,7 +1,7 @@
 #include "stdint.h"
 #include "stdio.h"
 #include "ctype.h"
-#include "keys_table.h"
+#include "kbd.h"
 #include "input-event-codes.h"
 
 #ifndef WIN32
@@ -48,7 +48,7 @@ void KBD_Close(void)
 	fclose(KBD_Fp);
 }
 
-char KBD_getDecodedChar()
+char KBD_GetDecodedChar()
 {
 	char c = 0;
 	if (KBD_Fp == NULL) return 0;

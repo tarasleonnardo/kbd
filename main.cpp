@@ -1,5 +1,5 @@
 #include "stdio.h"
-#include "keys_table.h"
+#include "kbd.h"
 
 int main(int argc, char* argv[])
 {
@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	/*******************/
 	while (1)
 	{
-		c = KBD_getDecodedChar();
+		c = KBD_GetDecodedChar();
 		if (c == EOF)
 		{
 			printf("End of file\n");

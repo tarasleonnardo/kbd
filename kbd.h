@@ -1,5 +1,5 @@
-#ifndef _KEYS_TABLE_H_
-#define _KEYS_TABLE_H_
+#ifndef _BT_KBD_H_
+#define _BT_KBD_H_
 
 #include "stdint.h"
 
@@ -15,9 +15,9 @@ extern "C"
 	int KBD_gets(char* str, int maxSize);
 	int16_t KBD_Init(char* path);
 	void KBD_Close();
-	char KBD_getDecodedChar();
+	char KBD_GetDecodedChar();
 
 #ifdef __cplusplus
 }
 #endif
-#endif // _KEYS_TABLE_H_
+#endif // _BT_KBD_H_
