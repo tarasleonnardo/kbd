@@ -15,8 +15,8 @@
 #define KBD_KEY_HOLD		0x02
 
 /* Data */
-static uint8_t KBD_Shift = 0;
-static uint8_t KBD_Ctrl = 0;
+static int8_t KBD_Shift = 0;
+static int8_t KBD_Ctrl = 0;
 static const char *KBD_Keys[KEY_MAX + 1];
 static FILE* KBD_Fp = NULL;
 static struct input_event inEvent;
@@ -29,6 +29,7 @@ static char KBD_ShiftGigits(uint16_t code);
 /* Public functions */
 
 /**
+  * @param[in] char* path - path to keyboard events file
   * @return int16_t - 0 if initialization was successful, -1 - if not.
   */
 int16_t KBD_Init(char* path)
@@ -48,6 +49,27 @@ void KBD_Close(void)
 	fclose(KBD_Fp);
 }
 
+/**
+  * @brief Get state of shift button
+  * @return uint8_t - shift state. 0 - not active, 1 - active
+  */
+int8_t KBD_GetShiftState(void)
+{
+	return KBD_Shift;
+}
+
+/**
+  * @brief Get state of ctrl button
+  * @return uint8_t - shift state. 0 - not active, 1 - active
+  */
+int8_t KBD_GetCtrlState(void)
+{
+	return KBD_Ctrl;
+}
+
+/**
+* @return int16_t - 0 if initialization was successful, -1 - if not.
+*/
 char KBD_GetDecodedChar()
 {
 	char c = 0;
@@ -88,6 +110,7 @@ char KBD_GetDecodedChar()
 	return 0;
 }
 
+/* Static fucntions */
 static char KBD_ShiftGigits(uint16_t code)
 {
 	char c = 0;
