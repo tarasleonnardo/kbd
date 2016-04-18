@@ -47,7 +47,7 @@ char KBD_getDecodedChar()
 	{
 		printf("End of file\n");
 		getchar();
-		exit();
+		exit(0);
 	}
 
 	//printf("Val = %d, Code = %d, Type = %d\n", inEvent.value, inEvent.code, inEvent.type);
