@@ -41,10 +41,10 @@ void KBD_Close(void)
 
 char KBD_getDecodedChar()
 {
-	if (fp == NULL) return EOF;
+	if (fp == NULL) return 0;
 
 	if (1 != fread(&inEvent, sizeof(inEvent), 1, fp))
-		return EOF;
+		return 0;
 	
 	if ((inEvent.type == EV_KEY) &&
 		((inEvent.value == 0x01) || (inEvent.value == 0x02)))
@@ -53,7 +53,7 @@ char KBD_getDecodedChar()
 			(keys[inEvent.code] != NULL))
 			return keys[inEvent.code][0];
 
-		return EOF;
+		return 0;
 	}
 }
 
