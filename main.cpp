@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
 	char c = 0;
 	char* path = NULL;
 	char pathBuf[128] = { 0 };
+	int cnt = 0;
 
 	do
 	{
@@ -44,6 +45,18 @@ int main(int argc, char* argv[])
 		else if (c != 0)
 		{
 			printf("%c\n", c);
+
+			pathBuf[cnt] = c;
+
+			if (++cnt > 10)
+			{
+				for (cnt = 0; cnt < 10; cnt++)
+				{
+					printf("%c", pathBuf[cnt]);
+				}
+				printf("\n");
+				cnt = 0;
+			}
 		}
 	}
 	/*******************/
