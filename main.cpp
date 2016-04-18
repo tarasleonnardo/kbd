@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			//printf("unknown\n");
+			printf("unknown\n");
 		}
 	}
 	return 0;
