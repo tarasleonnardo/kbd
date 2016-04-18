@@ -34,11 +34,10 @@ int main(int argc, char* argv[])
 
 	while (1)
 	{
-		printf("c = ");
 		c = KBD_getDecodedChar();
 		if (c != 0)
 		{
-			printf("%c\n", c);
+			printf("c = %c\n", c);
 		}
 	}
 	return 0;
