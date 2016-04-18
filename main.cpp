@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
 		c = KBD_getDecodedChar();
 		if (c != 0)
 		{
-			printf("%c\n", c);
+			printf(" %c", c);
 		}
 	}
 	return 0;
