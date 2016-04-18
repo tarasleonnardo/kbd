@@ -55,6 +55,11 @@ char KBD_getDecodedChar()
 		KBD_Close();
 		return EOF;
 	}
+	// Control key
+	if (0 == KBD_DecodeCrBtn(&inEvent))
+	{
+		printf("shift = %d, ctrl = %d\n", KBD_Shift, KBD_Ctrl);
+	}
 
 	if ((inEvent.type == EV_KEY) &&
 		((inEvent.value == KBD_KEY_PRESSED) || (inEvent.value == KBD_KEY_HOLD)))
@@ -64,9 +69,6 @@ char KBD_getDecodedChar()
 		{
 			return KBD_Keys[inEvent.code][0];
 		}
-		// Control key
-		KBD_DecodeCrBtn(&inEvent);
-		printf("shift = %d, ctrl = %d\n", KBD_Shift, KBD_Ctrl);
 		return 0;
 	}
 	return 0;
