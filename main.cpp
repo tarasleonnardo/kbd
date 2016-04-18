@@ -39,6 +39,10 @@ int main(int argc, char* argv[])
 		{
 			printf(" %c", c);
 		}
+		else
+		{
+			printf("unknown\n");
+		}
 	}
 	return 0;
 }
