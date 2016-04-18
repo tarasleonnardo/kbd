@@ -1,5 +1,6 @@
 #include "stdint.h"
 #include "stdio.h"
+#include "ctype.h"
 #include "keys_table.h"
 #include "input-event-codes.h"
 
@@ -66,7 +67,15 @@ char KBD_getDecodedChar()
 				if ((inEvent.code <= KEY_MAX) &&
 					(KBD_Keys[inEvent.code] != NULL))
 				{
-					return KBD_Keys[inEvent.code][0];
+					if (KBD_Shift == 0)
+					{
+						return (char)tolower(KBD_Keys[inEvent.code][0]);
+					}
+					else
+					{
+						return (char)toupper(KBD_Keys[inEvent.code][0]);
+					}
+					
 				}
 				return 0;
 			}
