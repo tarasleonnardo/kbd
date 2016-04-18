@@ -33,6 +33,11 @@ int main(int argc, char* argv[])
 		}
 	} while (1);
 
+	while (cnt++ < 10)
+	{
+		printf("tst ");
+	}
+	cnt = 0;
 	while (1)
 	{
 		c = KBD_getDecodedChar();
