@@ -82,11 +82,9 @@ char KBD_GetDecodedChar()
 	}
 	
 	// Control key
-	if (0 == KBD_DecodeCrBtn(&inEvent))
-	{
-		printf("shift = %d, ctrl = %d\n", KBD_Shift, KBD_Ctrl);
-	}else if ((inEvent.type == EV_KEY) &&
-		  ((inEvent.value == KBD_KEY_PRESSED) || (inEvent.value == KBD_KEY_HOLD)))
+	if ((0 != KBD_DecodeCrBtn(&inEvent)) &&
+	    (inEvent.type == EV_KEY) &&
+		((inEvent.value == KBD_KEY_PRESSED) || (inEvent.value == KBD_KEY_HOLD)))
 			{
 				if ((inEvent.code <= KEY_MAX) &&
 					(KBD_Keys[inEvent.code] != NULL))
