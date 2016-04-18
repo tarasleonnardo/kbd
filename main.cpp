@@ -6,6 +6,7 @@ int main(int argc, char* argv[])
 	char c = 0;
 	char* path = NULL;
 	char pathBuf[128] = { 0 };
+	int cnt = 0;
 
 	do
 	{
@@ -44,6 +45,15 @@ int main(int argc, char* argv[])
 		else if (c != 0)
 		{
 			printf("%c\n", c);
+			cnt = 0;
+		}
+		else
+		{
+			if (cnt == 0)
+			{
+				printf("Shift is %d, Ctrl is %d\n", KBD_GetShiftState(), KBD_GetCtrlState());
+				cnt = 1;
+			}
 		}
 	}
 	/*******************/
