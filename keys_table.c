@@ -59,7 +59,7 @@ char KBD_getDecodedChar()
 		if ((inEvent.code <= KEY_MAX) &&
 			(keys[inEvent.code] != NULL))
 		{
-			printf("char\n");
+//			printf("char\n");
 			return keys[inEvent.code][0];
 		}
 		//printf("not char\n");
