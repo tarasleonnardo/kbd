@@ -34,8 +34,8 @@ int main(int argc, char* argv[])
 
 	while (1)
 	{
-		//c = KBD_getDecodedChar();
-		c = getchar();
+		c = KBD_getDecodedChar();
+
 		if (c != 0)
 		{
 			printf("%c\n", c);
