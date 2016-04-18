@@ -35,6 +35,7 @@ int main(int argc, char* argv[])
 	/*******************/
 	while (1)
 	{
+		// Get code of pressed key. Function wait until key pressed.
 		c = KBD_GetDecodedChar();
 		if (c == EOF)
 		{
@@ -44,6 +45,7 @@ int main(int argc, char* argv[])
 		}
 		else if (c != 0)
 		{
+			// Show states of shift and control buttons
 			printf("Shift is %d, Ctrl is %d\n", KBD_GetShiftState(), KBD_GetCtrlState());
 			printf("%c\n", c);
 			cnt = 0;

@@ -70,7 +70,7 @@ int8_t KBD_GetCtrlState(void)
 /**
 * @return int16_t - 0 if initialization was successful, -1 - if not.
 */
-char KBD_GetDecodedChar()
+char KBD_GetDecodedChar(void)
 {
 	char c = 0;
 	if (KBD_Fp == NULL) return 0;
