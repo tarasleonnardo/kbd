@@ -48,6 +48,7 @@ char KBD_getDecodedChar()
 	{
 		printf("End of file\n");
 		getchar();
+		KBD_Close();
 		exit(0);
 	}
 
