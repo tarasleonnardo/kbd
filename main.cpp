@@ -31,16 +31,22 @@ int main(int argc, char* argv[])
 			argv[1] = NULL;
 		}
 	} while (1);
-
+	/*******************/
 	while (1)
 	{
 		c = KBD_getDecodedChar();
-
-		if (c != 0)
+		if (c == EOF)
+		{
+			printf("End of file\n");
+			getchar();
+			return 0;
+		}
+		else if (c != 0)
 		{
 			printf("%c\n", c);
 		}
 	}
+	/*******************/
 	return 0;
 }
 

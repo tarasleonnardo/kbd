@@ -1,6 +1,5 @@
 #include "stdint.h"
 #include "stdio.h"
-#include "stdlib.h"
 #include "keys_table.h"
 #include "input-event-codes.h"
 
@@ -11,13 +10,9 @@
 #endif
 
 /* Data */
-static int16_t head = 0;
-static int16_t tail = 0;
-static char inBuf[BT_KBD_IN_BUF_SIZE] = { 0 };
 static const char *keys[KEY_MAX + 1];
 static FILE* fp = NULL;
 static struct input_event inEvent;
-
 
 /* Public functions */
 /**
@@ -46,26 +41,21 @@ char KBD_getDecodedChar()
 
 	if (1 != fread(&inEvent, sizeof(inEvent), 1, fp))
 	{
-		printf("End of file\n");
-		getchar();
 		KBD_Close();
-		exit(0);
+		return EOF;
 	}
 
 //	printf("Val = %d, Code = %d, Type = %d\n", inEvent.value, inEvent.code, inEvent.type);
 	if ((inEvent.type == EV_KEY) &&
-		(inEvent.value == 0x01))// || (inEvent.value == 0x02)))
+		((inEvent.value == 0x01) || (inEvent.value == 0x02)))
 	{
 		if ((inEvent.code <= KEY_MAX) &&
 			(keys[inEvent.code] != NULL))
 		{
-//			printf("char\n");
 			return keys[inEvent.code][0];
 		}
-		//printf("not char\n");
 		return 0;
 	}
-	//printf("unknown\n");
 	return 0;
 }
 
