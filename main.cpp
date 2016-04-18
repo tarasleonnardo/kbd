@@ -44,16 +44,9 @@ int main(int argc, char* argv[])
 		}
 		else if (c != 0)
 		{
+			printf("Shift is %d, Ctrl is %d\n", KBD_GetShiftState(), KBD_GetCtrlState());
 			printf("%c\n", c);
 			cnt = 0;
-		}
-		else
-		{
-			if (cnt == 0)
-			{
-				printf("Shift is %d, Ctrl is %d\n", KBD_GetShiftState(), KBD_GetCtrlState());
-				cnt = 1;
-			}
 		}
 	}
 	/*******************/
