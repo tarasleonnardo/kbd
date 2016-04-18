@@ -44,10 +44,13 @@ char KBD_getDecodedChar()
 	if (fp == NULL) return 0;
 
 	if (1 != fread(&inEvent, sizeof(inEvent), 1, fp))
-		return 0;
+	{
+		printf("End of file\n");
+		getchar();
+		exit();
+	}
 
 	//printf("Val = %d, Code = %d, Type = %d\n", inEvent.value, inEvent.code, inEvent.type);
-	printf("gt chr");
 	if ((inEvent.type == EV_KEY) &&
 		(inEvent.value == 0x01))// || (inEvent.value == 0x02)))
 	{
