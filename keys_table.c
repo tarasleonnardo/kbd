@@ -62,10 +62,10 @@ char KBD_getDecodedChar()
 			printf("char\n");
 			return keys[inEvent.code][0];
 		}
-		printf("not char\n");
+		//printf("not char\n");
 		return 0;
 	}
-	printf("unknown\n");
+	//printf("unknown\n");
 	return 0;
 }
 
