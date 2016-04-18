@@ -28,6 +28,7 @@ int main(int argc, char* argv[])
 		else
 		{
 			printf("Could not open file \"%s\", enter other path\n", path);
+			argv[1] = NULL;
 		}
 	} while (1);
 
