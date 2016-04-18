@@ -70,7 +70,7 @@ char KBD_getDecodedChar()
 }
 
 static const char *keys[KEY_MAX + 1] = {
-	[KEY_RESERVED] = NULL, [KEY_ESC] = "e",
+	[KEY_RESERVED] = NULL, [KEY_ESC] = "\0x1b",
 	[KEY_1] = "1", [KEY_2] = "2",
 	[KEY_3] = "3", [KEY_4] = "4",
 	[KEY_5] = "5", [KEY_6] = "6",

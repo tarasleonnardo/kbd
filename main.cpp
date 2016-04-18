@@ -3,7 +3,6 @@
 
 int main(int argc, char* argv[])
 {
-	int cnt = 0;
 	char c = 0;
 	char* path = NULL;
 	char pathBuf[128] = { 0 };
@@ -33,22 +32,13 @@ int main(int argc, char* argv[])
 		}
 	} while (1);
 
-	while (cnt++ < 10)
-	{
-		printf("tst ");
-	}
-	cnt = 0;
 	while (1)
 	{
-		c = KBD_getDecodedChar();
+		//c = KBD_getDecodedChar();
+		c = getchar();
 		if (c != 0)
 		{
-			printf("%c", c);
-			if (++cnt > 10)
-			{
-				printf("\n");
-				cnt = 0;
-			}
+			printf("%c\n", c);
 		}
 	}
 	return 0;
