@@ -47,7 +47,7 @@ char KBD_getDecodedChar()
 		return 0;
 	
 	if ((inEvent.type == EV_KEY) &&
-		((inEvent.value == 0x01) || (inEvent.value == 0x02)))
+		(inEvent.value == 0x01))// || (inEvent.value == 0x02)))
 	{
 		if ((inEvent.code <= KEY_MAX) &&
 			(keys[inEvent.code] != NULL))
