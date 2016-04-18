@@ -33,7 +33,15 @@ int main(int argc, char* argv[])
 
 	while (1)
 	{
-		printf("%c", KBD_getDecodedChar());
+		c = KBD_getDecodedChar();
+		if (c == 0)
+		{
+			printf("Unknown character\n");
+		}
+		else
+		{
+			printf("%c", c);
+		}
 	}
 	return 0;
 }
