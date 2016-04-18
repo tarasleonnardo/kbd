@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
-			printf("");
+			printf("555");
 		}
 	}
 	return 0;
