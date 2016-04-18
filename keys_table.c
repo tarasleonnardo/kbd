@@ -22,6 +22,7 @@ static FILE* KBD_Fp = NULL;
 static struct input_event inEvent;
 
 static int16_t KBD_DecodeCrBtn(struct input_event * ev);
+static char KBD_ShiftGigits(uint16_t code);
 
 
 
@@ -49,6 +50,7 @@ void KBD_Close(void)
 
 char KBD_getDecodedChar()
 {
+	char c = 0;
 	if (KBD_Fp == NULL) return 0;
 
 	if (1 != fread(&inEvent, sizeof(inEvent), 1, KBD_Fp))
@@ -73,6 +75,10 @@ char KBD_getDecodedChar()
 					}
 					else
 					{
+						if (0 != (c = KBD_ShiftGigits(inEvent.code)))
+						{
+							return c;
+						}
 						return (char)toupper(KBD_Keys[inEvent.code][0]);
 					}
 					
@@ -80,6 +86,80 @@ char KBD_getDecodedChar()
 				return 0;
 			}
 	return 0;
+}
+
+static char KBD_ShiftGigits(uint16_t code)
+{
+	char c = 0;
+
+		switch (code)
+		{
+		case KEY_1:
+			c = '!';
+			break;
+		case KEY_2:
+			c = '@';
+			break;
+		case KEY_3:
+			c = '#';
+			break;
+		case KEY_4:
+			c = '$';
+			break;
+		case KEY_5:
+			c = '%';
+			break;
+		case KEY_6:
+			c = '^';
+			break;
+		case KEY_7:
+			c = '&';
+			break;
+		case KEY_8:
+			c = '*';
+			break;
+		case KEY_9:
+			c = '(';
+			break;
+		case KEY_0:
+			c = ')';
+			break;
+		case KEY_MINUS:
+			c = '_';
+			break;
+		case KEY_EQUAL:
+			c = '+';
+			break;
+		case KEY_GRAVE:
+			c = '~';
+			break;
+		case KEY_LEFTBRACE:
+			c = '{';
+			break;
+		case KEY_RIGHTBRACE:
+			c = '}';
+			break;
+		case KEY_BACKSLASH:
+			c = '|';
+			break;
+		case KEY_COMMA:
+			c = '<';
+			break;
+		case KEY_DOT:
+			c = '>';
+			break;
+		case KEY_SLASH:
+			c = '?';
+			break;
+		case KEY_SEMICOLON:
+			c = ':';
+			break;
+		case KEY_APOSTROPHE:
+			c = '\"';
+			break;
+		}
+
+		return c;
 }
 
 static int16_t KBD_DecodeCrBtn(struct input_event * ev)
@@ -120,7 +200,7 @@ static const char *KBD_Keys[KEY_MAX + 1] = {
 	[KEY_T] = "T", [KEY_Y] = "Y",
 	[KEY_U] = "U", [KEY_I] = "I",
 	[KEY_O] = "O", [KEY_P] = "P",
-	[KEY_LEFTBRACE] = "(", [KEY_RIGHTBRACE] = ")",
+	[KEY_LEFTBRACE] = "[", [KEY_RIGHTBRACE] = "]",
 	[KEY_ENTER] = "\n", [KEY_LEFTCTRL] = NULL,
 	[KEY_A] = "A", [KEY_S] = "S",
 	[KEY_D] = "D", [KEY_F] = "F",
